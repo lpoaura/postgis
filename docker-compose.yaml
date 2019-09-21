@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+  postgis:
+    image: kartoza/postgis:11.0-2.5
+    container_name: postgis
+    volumes:
+      - $PGDATA:/var/lib/postgresql
+    ports: 
+      - 163.172.195.17:5432:5432/tcp
+    environment:
+      - POSTGRES_USER=$DBUSER
+      - POSTGRES_PASS=$DBPASS
+      - POSTGRES_DBNAME=$DBNAME
+      - POSTGRES_MULTIPLE_EXTENSIONS=$DBEXTENSIONS  
+      - DEFAULT_ENCODING="UTF8"
+      - DEFAULT_COLLATION="fr_FR.UTF-8"
