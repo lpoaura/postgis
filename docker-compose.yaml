@@ -5,6 +5,10 @@ services:
   postgis:
     build: db
     container_name: pg11pgis25
+    volumes:
+      - $PGDATA:/var/lib/postgresql
+      - $PGLOG:/var/log/postgresql
+      - $PGCONFIG:/etc/postgresql
     ports: 
       - $DBPORT:5432/tcp
     environment:

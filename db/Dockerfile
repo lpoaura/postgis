@@ -1,5 +1,7 @@
 FROM postgres:11
 
+VOLUME ["/var/lib/postgresql","/var/log/postgresql","/etc/postgresql"]
+
 ENV POSTGIS_MAJOR 2.5
 ENV POSTGIS_VERSION 2.5.2+dfsg-1~exp1.pgdg90+1
 
@@ -21,4 +23,8 @@ RUN apt-get update \
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/postgis.sh
 COPY ./update-postgis.sh /usr/local/bin
+COPY ./extensions.sql /extensions.sql
 
+RUN echo "localhost:5432:${DBUSER}:${DBPASS}" > ~/.pgpass &&\
+    chmod 600 ~/.pgpass
+RUN psql -h localhost -U $DBUSER $DBNAME -f /extensions.sql
