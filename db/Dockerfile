@@ -5,6 +5,11 @@ VOLUME ["/var/lib/postgresql/data"]
 ENV POSTGIS_MAJOR 2.5
 ENV POSTGIS_VERSION 2.5.2+dfsg-1~exp1.pgdg90+1
 
+COPY cert.pem $postgresHome/server.key
+COPY cert.cert $postgresHome/server.crt
+RUN chown postgres $postgresHome/server.key && \
+    chmod 600 $postgresHome/server.key
+
 RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 ENV LANG fr_FR.UTF-8  

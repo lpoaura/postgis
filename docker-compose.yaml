@@ -4,18 +4,14 @@ services:
 
   postgis:
     build: db
-    container_name: pg11pgis25
+    container_name: gnlpoaura_db
     volumes:
       - $PGDATA:/var/lib/postgresql/data
-      #- $PGLOG:/var/log/postgresql
-      #- $PGCONFIG:/etc/postgresql
+      - $PGLOG:/var/log/postgresql
     ports: 
       - $DBPORT:5432/tcp
     environment:
       - POSTGRES_USER=$DBUSER
       - POSTGRES_PASSWORD=$DBPASS
       - POSTGRES_DB=$DBNAME
-      #- PG_DATA=$PGDATA
-      #- POSTGRES_MULTIPLE_EXTENSIONS=$DBEXTENSIONS  
-      #- DEFAULT_ENCODING="UTF8"
-      #- DEFAULT_COLLATION="fr_FR.UTF-8"
+
